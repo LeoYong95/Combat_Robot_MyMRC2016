@@ -10,6 +10,7 @@ Auth: Leo Yong
 
 Channel *ch1;
 Channel *ch2;
+Motor *m;
 
 unsigned long sigIn1, sigIn2,previousMillis;
 
@@ -18,6 +19,7 @@ void setup() {
   
   ch1 = new Channel(5);
   ch2 = new Channel(6);
+  m = new Motor();
   
 
   OCR0A = 0xAF;
@@ -35,9 +37,7 @@ void setup() {
 if (currentMillis -previousMillis == updateInterval) {
  sigIn1 = ch1->sigRead();
   sigIn2 = ch2->sigRead();
-      Serial.println(sigIn1);
-      Serial.println(sigIn2);
-      //update Motor Here
+  m->pwmMixing(sigIn1,sigIn2);
       previousMillis = currentMillis;
 }
  

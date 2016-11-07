@@ -28,7 +28,7 @@ int pwmCompute(int sig) {
 
 }
 
-void pwmMIxing (int pwm1, int pwm2) {       //pwm1 will be the pwm from channel 1 and pwm2 will be pwm signal from channel 2)
+void pwmMixing (int pwm1, int pwm2) {       //pwm1 will be the pwm from channel 1 and pwm2 will be pwm signal from channel 2)
 
     ch1PwmIn = pwmCompute(pwm1); ch2PwmIn = pwmCompute(pwm2);
     
@@ -39,7 +39,7 @@ void pwmMIxing (int pwm1, int pwm2) {       //pwm1 will be the pwm from channel 
         pwmOut2 = -250;
         Serial.println("turn Right Maximum");
       }
-              Serial.println("turn Right");
+            
 
     }else if (ch1PwmIn < 0 ) {
       pwmOut1 = ch1PwmIn;
@@ -49,9 +49,10 @@ void pwmMIxing (int pwm1, int pwm2) {       //pwm1 will be the pwm from channel 
         Serial.println("turn Left Maximum");
 
       }
-              Serial.println("turn Left");
+             
     }
-    
+    Serial.println(pwmOut1);
+    Serial.println(pwmOut2);
 /*
   if (pwmOut2 > 0 ) {
       dir1 = 1;
