@@ -5,10 +5,14 @@ Auth: Leo Yong
 */
  #include "Receiver.h"
 
+ #define updateInterval  100
+
+
 Channel *ch1;
 Channel *ch2;
 
-int sigIn1, sigIn2,count;
+unsigned long sigIn1, sigIn2,previousMillis;
+
 
 void setup() {
   
@@ -24,9 +28,22 @@ void setup() {
 {
   unsigned long currentMillis = millis();
   
-   sigIn1 = ch1->sigRead(currentMillis);
+ /*  sigIn1 = ch1->sigRead(currentMillis);
    sigIn2 = ch2->sigRead(currentMillis);
+   
+*/
+if (currentMillis -previousMillis == updateInterval) {
+ sigIn1 = ch1->sigRead();
+  sigIn2 = ch2->sigRead();
+      Serial.println(sigIn1);
+      Serial.println(sigIn2);
+      //update Motor Here
+      previousMillis = currentMillis;
+}
  
 }
 void loop() { 
+ 
+
+  
   }

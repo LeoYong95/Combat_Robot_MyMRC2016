@@ -1,9 +1,11 @@
 //Auth: Leo Yong
 
-//Receive the signal from receiver and process the direction and generate driving pwm.
 
-#define timeOut  25000
-#define timeUpdate  100
+//Receive the signal from receiver and process the direction and generate driving pwm.
+ #include "Motor.h"
+
+
+#define timeOut  250
 
 //=====BEGIN Channel CLASS=====
 class Channel {
@@ -13,20 +15,20 @@ class Channel {
   int prevTime;  
   Channel (int rec) : recPin(rec) {
     pinMode (recPin, INPUT);
-    Serial.begin(9600); // Pour a bowl of Serial
+    Serial.begin(9600); 
 
     }
 
-   int sigRead(unsigned long currentTime) {
-    if (currentTime - prevTime >= timeUpdate){
-      sigIn = pulseIn(recPin,HIGH,timeOut);   Serial.println(sigIn);
-      prevTime = currentTime;
-    }
-    return sigIn;
+   int sigRead() {
+  
+      sigIn = pulseIn(recPin,HIGH);  ;
+      return sigIn;
+
    }
-   int sig2Motor(int sig) {
-     sigOut = map(sig, 1000,2000,-500,500); return sigOut;
+   
+   /*int sig2Motor(int sig) {
+     sigOut = map(sig, 1000,2000,-225,225); return sigOut;
    }
-  int dir2Motor () {}
+  */
 };
 //=====END CLASS======
