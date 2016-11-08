@@ -5,8 +5,6 @@
  #include "Motor.h"
 
 
-#define timeOut  250
-
 //=====BEGIN Channel CLASS=====
 class Channel {
 

@@ -17,8 +17,12 @@ int dir1, dir2;
 
 
 
-Motor_Control()  {
+Motor_Control(int m1,int d1,int m2,int d2) : motor1Pin(m1) ,motor2Pin(m2),dir1Pin(d1), dir2Pin(d2) {
       Serial.begin(9600); 
+      pinMode (motor1Pin,OUTPUT);
+      pinMode (motor2Pin,OUTPUT);
+      pinMode (dir1Pin,OUTPUT);
+      pinMode (dir2Pin,OUTPUT);
 
   }
 
@@ -26,6 +30,14 @@ int pwmCompute(int sig) {
   
   int pwmSig = map(sig, 1000,2000,-250,250); return pwmSig;
 
+}
+
+void motorCommand(int pwm1, int dir1, int pwm2 , int dir2 ){
+
+  digitalWrite(dir1Pin,dir1);
+  digitalWrite(dir2Pin,dir2);
+  digitalWrite(motor1Pin,pwm1);
+  digitalWrite(motor2Pin,pwm2);
 }
 
 void pwmMixing (int pwm1, int pwm2) {              //pwm1 will be the pwm from channel 1 and pwm2 will be pwm signal from channel 2)
@@ -61,8 +73,8 @@ void pwmMixing (int pwm1, int pwm2) {              //pwm1 will be the pwm from c
     
   }
 
-    Serial.println(pwmOut1);                     //DEBUGGING
-    Serial.println(pwmOut2);
+    //Serial.println(pwmOut1);                     //DEBUGGING
+    //Serial.println(pwmOut2);
     
   if (pwmOut2 > 0 ) {
       dir2 = 0;
@@ -75,9 +87,12 @@ void pwmMixing (int pwm1, int pwm2) {              //pwm1 will be the pwm from c
     }else if (pwmOut1 < 0) {
       dir1 = 1;
     }
+    
+    motorCommand(pwmOut1,dir1,pwmOut2,dir2);
     //Serial.println(dir1);                       //DEBUGGING
     //Serial.println(dir2);
 }
-  
+
+
 };
 //=====END CLASS======

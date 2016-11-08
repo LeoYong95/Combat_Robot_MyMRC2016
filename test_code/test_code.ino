@@ -4,10 +4,9 @@ Auth: Leo Yong
 
 */
  #include "Receiver.h"
+ #include "Param.h"
 
- #define updateInterval  100
-
-
+ 
 Channel *ch1;
 Channel *ch2;
 Motor_Control *m;
@@ -17,9 +16,9 @@ unsigned long sigIn1, sigIn2,previousMillis;
 
 void setup() {
   
-  ch1 = new Channel(5);
-  ch2 = new Channel(6);
-  m = new Motor_Control();
+  ch1 = new Channel(RECCHANNEL1);
+  ch2 = new Channel(RECCHANNEL2);
+  m = new Motor_Control(MOTOR1PWMPIN,MOTOR1DIRPIN, MOTOR2PWMPIN,MOTOR2DIRPIN);
   
 
   OCR0A = 0xAF;
@@ -42,8 +41,5 @@ if (currentMillis -previousMillis == updateInterval) {
 }
  
 }
-void loop() { 
- 
 
-  
-  }
+void loop() {}
