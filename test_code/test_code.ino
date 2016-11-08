@@ -10,7 +10,7 @@ Auth: Leo Yong
 
 Channel *ch1;
 Channel *ch2;
-Motor *m;
+Motor_Control *m;
 
 unsigned long sigIn1, sigIn2,previousMillis;
 
@@ -19,7 +19,7 @@ void setup() {
   
   ch1 = new Channel(5);
   ch2 = new Channel(6);
-  m = new Motor();
+  m = new Motor_Control();
   
 
   OCR0A = 0xAF;
