@@ -23,10 +23,5 @@ class Channel {
       return sigIn;
 
    }
-   
-   /*int sig2Motor(int sig) {
-     sigOut = map(sig, 1000,2000,-225,225); return sigOut;
-   }
-  */
 };
 //=====END CLASS======

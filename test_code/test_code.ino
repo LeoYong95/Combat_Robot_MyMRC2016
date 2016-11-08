@@ -34,10 +34,6 @@ void setup() {
 {
   unsigned long currentMillis = millis();
   
- /*  sigIn1 = ch1->sigRead(currentMillis);
-   sigIn2 = ch2->sigRead(currentMillis);
-   
-*/
 if (currentMillis -previousMillis == updateInterval) {
  sigIn1 = ch1->sigRead();
   sigIn2 = ch2->sigRead();
