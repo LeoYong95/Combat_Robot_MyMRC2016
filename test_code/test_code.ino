@@ -14,15 +14,17 @@ Auth: Leo Yong
  
 Channel *ch1;
 Channel *ch2;
+Channel *ch5;
 Motor_Control *m;
 
-unsigned long sigIn1, sigIn2,previousMillis;
+unsigned long sigIn1,sigIn2,sigIn5,previousMillis;
 
 
 void setup() {
   
   ch1 = new Channel(RECCHANNEL1);
   ch2 = new Channel(RECCHANNEL2);
+  ch5 = new Channel(RECCHANNEL5);
   m = new Motor_Control(MOTOR1PWMPIN,MOTOR1DIRPIN, MOTOR2PWMPIN,MOTOR2DIRPIN);
   
 
@@ -36,9 +38,13 @@ void setup() {
   
 if (currentMillis -previousMillis == updateInterval) {
  sigIn1 = ch1->sigRead();
-  sigIn2 = ch2->sigRead();
-  m->pwmMixing(sigIn1,sigIn2);
-      previousMillis = currentMillis;
+ sigIn2 = ch2->sigRead();
+ sigIn5 = ch5->sigRead();
+ 
+ 
+ m->pwmMixing(sigIn1,sigIn2,sigIn5);
+ 
+ previousMillis = currentMillis;
 }
  
 }

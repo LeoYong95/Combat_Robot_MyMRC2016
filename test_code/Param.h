@@ -6,6 +6,7 @@
 //Receiver Pin in
  #define RECCHANNEL1  6
  #define RECCHANNEL2  7
+ #define RECCHANNEL5  8
 
 //Motor Pin Out
  #define MOTOR1PWMPIN  3

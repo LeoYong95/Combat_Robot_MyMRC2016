@@ -12,7 +12,7 @@ public:
 int motor1Pin,motor2Pin, dir1Pin,dir2Pin;
 int chIn;
 int ch1PwmIn , ch2PwmIn;
-int pwmOut1 , pwmOut2;
+int pwmOut1 , pwmOut2, pwmOut5;
 int dir1, dir2;
 
 
@@ -32,17 +32,22 @@ int pwmCompute(int sig) {
 
 }
 
-void motorCommand(int pwm1, int dir1, int pwm2 , int dir2 ){
+void motorCommand(int pwm1, int dir1, int pwm2 , int dir2 , int pwm5 ){
 
+if (pwm5 >1500){
   digitalWrite(dir1Pin,dir1);
   digitalWrite(dir2Pin,dir2);
   digitalWrite(motor1Pin,pwm1);
   digitalWrite(motor2Pin,pwm2);
+}else if (pwm5 <1500) {
+  Serial.println("Motor Offline");
+}
 }
 
-void pwmMixing (int pwm1, int pwm2) {              //pwm1 will be the pwm from channel 1 and pwm2 will be pwm signal from channel 2)
+void pwmMixing (int pwm1, int pwm2, int pwm5) {              //pwm1 will be the pwm from channel 1 and pwm2 will be pwm signal from channel 2)
 
     ch1PwmIn = pwmCompute(pwm1); ch2PwmIn = pwmCompute(pwm2);
+    pwmOut5 = pwm5;
     
     if (ch1PwmIn > 0) {
       pwmOut1 = ch2PwmIn;
@@ -87,10 +92,11 @@ void pwmMixing (int pwm1, int pwm2) {              //pwm1 will be the pwm from c
     }else if (pwmOut1 < 0) {
       dir1 = 1;
     }
-    
-    motorCommand(pwmOut1,dir1,pwmOut2,dir2);
     //Serial.println(dir1);                       //DEBUGGING
     //Serial.println(dir2);
+    
+    motorCommand(pwmOut1,dir1,pwmOut2,dir2, pwmOut5);
+
 }
 
 
