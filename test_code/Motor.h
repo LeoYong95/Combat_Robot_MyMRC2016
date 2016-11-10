@@ -28,8 +28,14 @@ Motor_Control(int m1,int d1,int m2,int d2) : motor1Pin(m1) ,motor2Pin(m2),dir1Pi
 
 int pwmCompute(int sig) {
   
-  int pwmSig = map(sig, 1000,2000,-250,250); return pwmSig;
-
+  int pwmSig = map(sig, 1000,2000,-250,250);
+ 
+  if (pwmSig <10 && pwmSig >10) {
+    
+    pwmSig = 0;
+  }
+  
+return pwmSig;
 }
 
 void motorCommand(int pwm1, int dir1, int pwm2 , int dir2 , int pwm5 ){
@@ -49,7 +55,7 @@ void pwmMixing (int pwm1, int pwm2, int pwm5) {              //pwm1 will be the 
     ch1PwmIn = pwmCompute(pwm1); ch2PwmIn = pwmCompute(pwm2);
     pwmOut5 = pwm5;
     
-    if (ch1PwmIn > 0) {
+    if (ch1PwmIn > 0 ) {
       pwmOut1 = ch2PwmIn;
       pwmOut2 = ch2PwmIn-ch1PwmIn*0.8 ; 
       if (pwmOut2 <-250) {                        //Just for error catching 
@@ -58,7 +64,7 @@ void pwmMixing (int pwm1, int pwm2, int pwm5) {              //pwm1 will be the 
       }
             
 
-    }else if (ch1PwmIn < 0 ) {
+    }else if (ch1PwmIn < 0) {
       pwmOut1 = ch2PwmIn;
       pwmOut2 = ch2PwmIn- ch1PwmIn*0.8 ;
       if (pwmOut2 >250) {
@@ -70,28 +76,36 @@ void pwmMixing (int pwm1, int pwm2, int pwm5) {              //pwm1 will be the 
     }
 
   
-  if (pwmOut2 >= -5 && pwmOut2 <= 5 ) {          //Remove direction fluctuation
+  if (pwmOut2 >= -15 && pwmOut2 <= 15 ) {          //Remove direction fluctuation
     pwmOut2 = 0;
+     Serial.println("cnadkjcndsjkncdjcn");
     
-  }else if (pwmOut1 >= -5 && pwmOut1 <= 5 ) {
+   
+    
+  }else if (pwmOut1 >= -15 && pwmOut1 <= 15 ) {
     pwmOut1 = 0;
+         Serial.println("cnadkjcndsjkncdjcn");
+
+
     
   }
 
-    //Serial.println(pwmOut1);                     //DEBUGGING
-    //Serial.println(pwmOut2);
+    Serial.println(pwmOut1);                     //DEBUGGING
+    Serial.println(pwmOut2);
     
-  if (pwmOut2 > 0 ) {
+   if (pwmOut2 > 0 ) {
       dir2 = 0;
     }else if (pwmOut2 < 0) {
       dir2 = 1;
     }
+
     
-   if (pwmOut1 > 0 ) {
+    if (pwmOut1 > 0 ) {
       dir1 = 0;
     }else if (pwmOut1 < 0) {
       dir1 = 1;
     }
+   
     //Serial.println(dir1);                       //DEBUGGING
     //Serial.println(dir2);
     
