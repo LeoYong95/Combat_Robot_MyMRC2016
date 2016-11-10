@@ -61,9 +61,16 @@ void pwmMixing (int pwm1, int pwm2, int pwm5) {              //pwm1 will be the 
       if (pwmOut2 <-250) {                        //Just for error catching 
         pwmOut2 = -250;
         //Serial.println("turn Right Maximum");   //DEBUGGING
-      }
-            
+      }else if (pwmOut2 >= -10 && pwmOut2 <= 10 ) {          //Remove direction fluctuation
+        pwmOut2 = 0;
+        //Serial.println(pwmOut2);
 
+     }else if (pwmOut1 >= -10 && pwmOut1 <= 10 ) {
+        pwmOut1 = 0;
+        //Serial.println(pwmOut1);
+
+  }
+            
     }else if (ch1PwmIn < 0) {
       pwmOut1 = ch2PwmIn;
       pwmOut2 = ch2PwmIn- ch1PwmIn*0.8 ;
@@ -71,24 +78,34 @@ void pwmMixing (int pwm1, int pwm2, int pwm5) {              //pwm1 will be the 
          pwmOut2 = 250;
         //Serial.println("turn Left Maximum");    //DEBUGGING
 
-      }
+      }else if (pwmOut2 >= -10 && pwmOut2 <= 10 ) {          //Remove direction fluctuation
+        pwmOut2 = 0;
+        //Serial.println(pwmOut2);
+    
+       }else if (pwmOut1 >= -10 && pwmOut1 <= 10 ) {
+         pwmOut1 = 0;
+         //Serial.println(pwmOut1);
+
+
+    
+  }
              
     }
 
-  
+  /*
   if (pwmOut2 >= -15 && pwmOut2 <= 15 ) {          //Remove direction fluctuation
     pwmOut2 = 0;
-     Serial.println("cnadkjcndsjkncdjcn");
+     Serial.println(pwmOut2);
     
    
     
   }else if (pwmOut1 >= -15 && pwmOut1 <= 15 ) {
     pwmOut1 = 0;
-         Serial.println("cnadkjcndsjkncdjcn");
+         Serial.println(pwmOut1);
 
 
     
-  }
+  }*/
 
     Serial.println(pwmOut1);                     //DEBUGGING
     Serial.println(pwmOut2);
@@ -110,6 +127,13 @@ void pwmMixing (int pwm1, int pwm2, int pwm5) {              //pwm1 will be the 
     //Serial.println(dir2);
     
     motorCommand(pwmOut1,dir1,pwmOut2,dir2, pwmOut5);
+
+    pwmOut1 = 0;
+    pwmOut2 = 0;
+    pwmOut5 = 0;
+    dir1 = 0;
+    dir2 = 0;
+    
 
 }
 
