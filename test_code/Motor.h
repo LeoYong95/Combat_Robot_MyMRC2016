@@ -28,7 +28,7 @@ Motor_Control(int m1,int d1,int m2,int d2) : motor1Pin(m1) ,motor2Pin(m2),dir1Pi
 
 int pwmCompute(int sig) {
   
-  int pwmSig = map(sig, 1000,2000,-250,250);
+  int pwmSig = map(sig, 1000,2000,-180,180);
  
   if (pwmSig <10 && pwmSig >10) {
     
@@ -58,8 +58,8 @@ void pwmMixing (int pwm1, int pwm2, int pwm5) {              //pwm1 will be the 
     if (ch1PwmIn > 0 ) {
       pwmOut1 = ch2PwmIn;
       pwmOut2 = ch2PwmIn-ch1PwmIn*0.8 ; 
-      if (pwmOut2 <-250) {                        //Just for error catching 
-        pwmOut2 = -250;
+      if (pwmOut2 <-180) {                        //Just for error catching 
+        pwmOut2 = -180;
         //Serial.println("turn Right Maximum");   //DEBUGGING
       }else if (pwmOut2 >= -10 && pwmOut2 <= 10 ) {          //Remove direction fluctuation
         pwmOut2 = 0;
@@ -74,8 +74,8 @@ void pwmMixing (int pwm1, int pwm2, int pwm5) {              //pwm1 will be the 
     }else if (ch1PwmIn < 0) {
       pwmOut1 = ch2PwmIn;
       pwmOut2 = ch2PwmIn- ch1PwmIn*0.8 ;
-      if (pwmOut2 >250) {
-         pwmOut2 = 250;
+      if (pwmOut2 >180) {
+         pwmOut2 = 180;
         //Serial.println("turn Left Maximum");    //DEBUGGING
 
       }else if (pwmOut2 >= -10 && pwmOut2 <= 10 ) {          //Remove direction fluctuation
