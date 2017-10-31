@@ -17,7 +17,8 @@ Channel *ch2;
 Channel *ch5;
 Motor_Control *m;
 
-unsigned long sigIn1,sigIn2,sigIn5,previousMillis;
+
+unsigned long sigIn1,sigIn2,sigIn5,sigIn6,previousMillis;
 
 
 void setup() {
@@ -40,9 +41,9 @@ if (currentMillis -previousMillis == updateInterval) {
  sigIn1 = ch1->sigRead();
  sigIn2 = ch2->sigRead();
  sigIn5 = ch5->sigRead();
- 
- 
- m->pwmMixing(sigIn1,sigIn2,sigIn5);
+     
+
+ m->pwmMixingTest(sigIn1,sigIn2,sigIn5);
  
  previousMillis = currentMillis;
 }

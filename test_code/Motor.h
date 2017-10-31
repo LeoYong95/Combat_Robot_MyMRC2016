@@ -5,6 +5,8 @@
 //NOte: Maximum motor PWM signal = 250
 //Note: motor 1 is left motor motor 2 is right motor
 
+#include "Param.h"
+
 //=====BEGIN Motor CLASS=====
 class Motor_Control {
 
@@ -107,8 +109,8 @@ void pwmMixing (int pwm1, int pwm2, int pwm5) {              //pwm1 will be the 
     
   }*/
 
-    Serial.println(pwmOut1);                     //DEBUGGING
-    Serial.println(pwmOut2);
+    //Serial.println(pwmOut1);                     //DEBUGGING
+    //Serial.println(pwmOut2);
     
    if (pwmOut2 > 0 ) {
       dir2 = 0;
@@ -137,6 +139,40 @@ void pwmMixing (int pwm1, int pwm2, int pwm5) {              //pwm1 will be the 
 
 }
 
+void pwmMixingTest(int pwm1, int pwm2, int pwm5) {
+
+  ch1PwmIn = pwmCompute(pwm1); ch2PwmIn = pwmCompute(pwm2);
+    pwmOut5 = pwm5;
+
+    pwmOut1 = PWMCONST *(ch2PwmIn + ch1PwmIn);
+    pwmOut2 = PWMCONST *(ch2PwmIn - ch1PwmIn);
+
+      Serial.println(pwmOut1);              //DEBUGGING
+      Serial.println(pwmOut2);              //DEBUGGING
+      
+ if ( pwmOut1 > 0 ) {
+      dir1 = 0;
+    }else if (pwmOut1 < 0 ) {
+      dir1 = 1;
+    }
+
+ if ( pwmOut2 > 0) {
+      dir2 = 0;
+    }else if (pwmOut2 < 0) {
+      dir2 =1;
+    }
+
+    motorCommand(pwmOut1,dir1,pwmOut2,dir2, pwmOut5);
+
+    pwmOut1 = 0;
+    pwmOut2 = 0;
+    pwmOut5 = 0;
+    dir1 = 0;
+    dir2 = 0;
+    
+  
+  
+}
 
 };
 //=====END CLASS======
